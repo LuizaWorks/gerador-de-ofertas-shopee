@@ -3,51 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShopeeZap VIP</title>
+    <title>Gerador ShopeeZap VIP</title>
     <meta name="theme-color" content="#ee4d2d">
-    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; padding: 15px; margin: 0; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; justify-content: center; padding: 15px; margin: 0; }
         .app-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 400px; border-top: 8px solid #ee4d2d; text-align: center; }
         h2 { color: #ee4d2d; margin-bottom: 20px; font-size: 26px; }
         .input-group { text-align: left; margin-bottom: 15px; }
         label { display: block; font-size: 13px; font-weight: bold; color: #555; margin-bottom: 5px; }
         input { width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 12px; box-sizing: border-box; font-size: 16px; outline: none; background: #fafafa; }
-        .btn-gerar { width: 100%; padding: 18px; background: linear-gradient(135deg, #ee4d2d, #ff7337); color: white; border: none; border-radius: 15px; font-weight: bold; font-size: 18px; cursor: pointer; }
+        .btn-gerar { width: 100%; padding: 18px; background: linear-gradient(135deg, #ee4d2d, #ff7337); color: white; border: none; border-radius: 15px; font-weight: bold; font-size: 18px; cursor: pointer; box-shadow: 0 4px 15px rgba(238, 77, 45, 0.3); }
         #btnZap { display: none; width: 100%; padding: 18px; background-color: #25d366; color: white; border: none; border-radius: 15px; font-weight: bold; text-decoration: none; text-align: center; margin-top: 20px; box-sizing: border-box; font-size: 18px; }
     </style>
 </head>
 <body>
+
 <div class="app-card">
-    <h2>🧡 ShopeeZap VIP</h2>
-    <div class="input-group"><label>Link do Produto</label><input type="text" id="link" placeholder="Cole o link..."></div>
-    <div class="input-group"><label>Nome do Produto</label><input type="text" id="nome" placeholder="Ex: Ventilador"></div>
+    <h2>🧡 ShopeeZap VIP Pro</h2>
+    <div class="input-group"><label>Link do Produto</label><input type="text" id="link" placeholder="Cole o link aqui..."></div>
+    <div class="input-group"><label>Nome do Produto</label><input type="text" id="nome" placeholder="Ex: Ventilador Turbo"></div>
     <div class="input-group"><label>Preço Opcional</label><input type="text" id="preco" placeholder="Ex: 149,90"></div>
     <button class="btn-gerar" onclick="gerarPost()">CRIAR OFERTA 🎲</button>
-    <a id="btnZap" href="#" target="_blank">📲 ENVIAR NO WHATSAPP</a>
+    <a id="btnZap" href="#" target="_blank">📲 ENVIAR AGORA</a>
 </div>
+
 <script>
-    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
     function gerarPost() {
         const link = document.getElementById('link').value.trim();
         const nomeRaw = document.getElementById('nome').value.trim();
         const preco = document.getElementById('preco').value.trim();
         const grupo = "https://chat.whatsapp.com/FneGhsY2xwH5rzhqi32hFq";
-        if (!link || !nomeRaw) { alert("Preencha o link e o nome!"); return; }
-        const p = preco ? `\n💰 *VALOR: R$ ${preco}*` : "\n✅ *MELHOR PREÇO DO DIA!*";
+        
+        if (!link || !nomeRaw) {
+            alert("Preencha o link e o nome!");
+            return;
+        }
+
+        const precoTxt = preco ? `\n💰 *VALOR: R$ ${preco}*` : "\n✅ *PREÇO MAIS BAIXO DO ANO!*";
         const n = "*" + nomeRaw.toUpperCase() + "*";
-        const c = "\n\n--- \n🚀 *Envie nosso grupo para seus amigos:* \n" + grupo;
+        const call = "\n\n--- \n🚀 *Envie nosso grupo para seus amigos:* \n" + grupo;
+
         const modelos = [
-            `⚠️ *ALERTA!* ⚠️\n\n📦 ${n}${p}\n\n📢 *ESTOQUE BAIXANDO!* \n🛒 *COMPRE AQUI:* \n${link}${c}`,
-            `🔥 *OFERTA!* 🔥\n\n🛍️ ${n}${p}\n\n✅ Preço imbatível hoje!\n🛒 *LINK:* \n${link}${c}`,
-            `✨ *UTILIDADE!* ✨\n\n📦 ${n}${p}\n\n🚚 Frete Grátis disponível!\n🛒 *PEGUE O SEU:* \n${link}${c}`,
-            `🛑 *PAROU TUDO!* 🛑\n\n📦 ${n}${p}\n\n😱 Menor preço do mês!\n🛒 *COMPRE AGORA:* \n${link}${c}`
-            // ... (as outras 16 frases seguem a mesma lógica)
+            `⚠️ *ALERTA DE OPORTUNIDADE!* ⚠️\n\n📦 ${n}${precoTxt}\n\n📢 *ESTOQUE BAIXANDO RÁPIDO!* \nCorra para garantir, esse desconto pode sumir a qualquer momento.\n\n🛒 *COMPRE AQUI:* \n${link}${call}`,
+            `🔥 *ESSE VAI ACABAR EM MINUTOS!* 🔥\n\n🛍️ ${n}${precoTxt}\n\n✅ Selecionamos esse achadinho porque é o menor preço do mês! Não deixe passar.\n\n🛒 *LINK OFICIAL:* \n${link}${call}`,
+            `✨ *ACHADINHO TESTADO E APROVADO!* ✨\n\n📦 ${n}${precoTxt}\n\n🚚 Frete Grátis disponível! Esse item é um dos mais vendidos da semana.\n\n🛒 *PEQUE O SEU AQUI:* \n${link}${call}`,
+            `🛑 *PAROU TUDO! OLHA ISSO:* 🛑\n\n📦 ${n}${precoTxt}\n\n😱 Estávamos esperando esse preço cair! Aproveite enquanto o link está ativo.\n\n🛒 *COMPRE AGORA:* \n${link}${call}`,
+            `💎 *RELIQUIA DA SHOPEE ENCONTRADA!* 💎\n\n🎁 ${n}${precoTxt}\n\n🌟 Qualidade premium com preço de banana. Garanta o seu antes de todo mundo!\n\n🛒 *LINK DA OFERTA:* \n${link}${call}`,
+            `🧨 *OFERTA EXPLOSIVA!* 🧨\n\n💣 ${n}${precoTxt}\n\n💥 O sistema da Shopee bugou? Olha esse valor! Aproveite antes que corrijam.\n\n🛒 *COMPRE AQUI:* \n${link}${call}`,
+            `🌈 *ACHADINHO QUE TODO MUNDO QUER!* 🌈\n\n🧸 ${n}${precoTxt}\n\n😍 Muito útil e com preço baixo. Esse é o queridinho do momento!\n\n🛒 *EU QUERO:* \n${link}${call}`,
+            `🚨 *URGENTE: PREÇO DE ATACADO!* 🚨\n\n🏭 ${n}${precoTxt}\n\n📉 Caiu o preço! Uma unidade saindo valor de fábrica. Só hoje!\n\n🛒 *LINK PROMOCIONAL:* \n${link}${call}`,
+            `Fox *ACHADO ESPERTO!* 🦊\n\n🎯 ${n}${precoTxt}\n\n✅ Economia real de verdade. Pesquisamos e esse é o link mais barato!\n\n🛒 *CLIQUE E ECONOMIZE:* \n${link}${call}`,
+            `👑 *O REI DOS ACHADINHOS!* 👑\n\n🏆 ${n}${precoTxt}\n\n🥇 Se você estava esperando um sinal para comprar, é ESSE!\n\n🛒 *PEQUE O SEU:* \n${link}${call}`,
+            `⚡ *OFERTA RELÂMPAGO!* ⚡\n\n🕓 ${n}${precoTxt}\n\n⏳ Vai durar pouquíssimo tempo. Quem chegar primeiro leva!\n\n🛒 *LINK RÁPIDO:* \n${link}${call}`,
+            `🍀 *SORTE A SUA QUE ACHAMOS!* 🍀\n\n📦 ${n}${precoTxt}\n\n😱 Estava esgotado e voltou em promoção. Corre pro link!\n\n🛒 *GARANTIR AGORA:* \n${link}${call}`,
+            `💸 *DINHEIRO DE VOLTA? QUASE ISSO!* 💸\n\n💰 ${n}${precoTxt}\n\n🤩 O desconto está tão grande que parece presente. Aproveite!\n\n🛒 *LINK DO ACHADINHO:* \n${link}${call}`,
+            `👀 *NÃO DIGA QUE EU NÃO AVISEI!* 👀\n\n📦 ${n}${precoTxt}\n\n⚠️ Preço promocional fora de época. Só para quem está no grupo!\n\n🛒 *COMPRE AQUI:* \n${link}${call}`,
+            `⭐ *TOP 1 VENDAS DA SEMANA!* ⭐\n\n📦 ${n}${precoTxt}\n\n✅ Todo mundo está comprando e a avaliação é nota 10!\n\n🛒 *LINK DO SUCESSO:* \n${link}${call}`,
+            `🤫 *OFERTA ESCONDIDA REVELADA!* 🤫\n\n🎁 ${n}${precoTxt}\n\n🕵️‍♂️ Garimpamos esse link perdido com um preço imbatível. Só clica!\n\n🛒 *ACESSO AO LINK:* \n${link}${call}`,
+            `💥 *BOOM! DESCONTO NA TELA!* 💥\n\n📦 ${n}${precoTxt}\n\n👊 Direto ao ponto: melhor preço, melhor vendedor e frete grátis.\n\n🛒 *COMPRE JÁ:* \n${link}${call}`,
+            `📦 *UTILIDADE COM PREÇO BAIXO!* 📦\n\n✨ ${n}${precoTxt}\n\n💖 Perfeito para o que você precisa e cabe no seu bolso. Olha que oportunidade!\n\n🛒 *QUERO O MEU:* \n${link}${call}`,
+            `🚀 *OFERTA PRA DECOLAR!* 🚀\n\n📦 ${n}${precoTxt}\n\n🛸 Rápido, prático e muito barato. O melhor achado do dia disparado!\n\n🛒 *LINK OFICIAL:* \n${link}${call}`,
+            `🥳 *PARA TUDO E COMEMORA!* 🥳\n\n🎈 ${n}${precoTxt}\n\n🙌 Finalmente esse item entrou em oferta. É a sua chance!\n\n🛒 *CLIQUE NO LINK:* \n${link}${call}`
         ];
+
         const sorteio = modelos[Math.floor(Math.random() * modelos.length)];
-        document.getElementById('btnZap').href = "https://api.whatsapp.com/send?text=" + encodeURIComponent(sorteio);
-        document.getElementById('btnZap').style.display = 'block';
+        const zapUrl = "https://api.whatsapp.com/send?text=" + encodeURIComponent(sorteio);
+        const botao = document.getElementById('btnZap');
+        botao.href = zapUrl;
+        botao.style.display = 'block';
     }
 </script>
+
 </body>
 </html>
